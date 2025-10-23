@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import "./Dashboard.css";
 import { 
@@ -42,6 +42,7 @@ import {
   FaSync,
   FaUserCircle
 } from "react-icons/fa";
+import QRCode from 'qrcode';
 
 const AdminDashboard = () => {
   const userEmail = localStorage.getItem("userEmail") || "admin@example.com";
@@ -54,6 +55,7 @@ const AdminDashboard = () => {
   const [showApply2FAModal, setShowApply2FAModal] = useState(false);
   const [showLogDetailsModal, setShowLogDetailsModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [qrCodeDataUrl, setQrCodeDataUrl] = useState('');
   const [newUser, setNewUser] = useState({
     email: "",
     password: "",
@@ -81,6 +83,20 @@ const AdminDashboard = () => {
     { id: 7, name: "Tom Miller", email: "tom@example.com", role: "user", status: "active", joinDate: "2024-03-01" },
     { id: 8, name: "Amy Garcia", email: "amy@example.com", role: "user", status: "active", joinDate: "2024-03-05" }
   ]);
+
+  // Generate QR code when selectedUser changes
+  useEffect(() => {
+    if (selectedUser?.email) {
+      QRCode.toDataURL(selectedUser.email, {
+        width: 200,
+        margin: 2,
+        color: {
+          dark: '#000000',
+          light: '#FFFFFF'
+        }
+      }).then(setQrCodeDataUrl).catch(console.error);
+    }
+  }, [selectedUser]);
 
   const handleAddUser = () => {
     if (newUser.email && newUser.password) {
@@ -2318,15 +2334,25 @@ const AdminDashboard = () => {
               
               <div className="qr-code-container">
                 <div className="qr-code-placeholder">
-                  <div className="qr-code-grid">
-                    {/* Generate a unique QR code pattern for each user */}
-                    {Array.from({ length: 25 }, (_, i) => (
-                      <div 
-                        key={i} 
-                        className={`qr-square ${Math.random() > 0.5 ? 'black' : 'white'}`}
-                      />
-                    ))}
-                  </div>
+                  {qrCodeDataUrl ? (
+                    <img 
+                      src={qrCodeDataUrl} 
+                      alt="QR Code" 
+                      style={{ width: '100%', height: 'auto' }}
+                    />
+                  ) : (
+                    <div style={{ 
+                      width: '200px', 
+                      height: '200px', 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      justifyContent: 'center',
+                      color: '#666',
+                      fontSize: '14px'
+                    }}>
+                      Loading QR Code...
+                    </div>
+                  )}
                 </div>
               </div>
               
