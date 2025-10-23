@@ -52,6 +52,7 @@ const AdminDashboard = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showQRCodeModal, setShowQRCodeModal] = useState(false);
   const [showApply2FAModal, setShowApply2FAModal] = useState(false);
+  const [showLogDetailsModal, setShowLogDetailsModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [newUser, setNewUser] = useState({
     email: "",
@@ -193,6 +194,10 @@ const AdminDashboard = () => {
       setShowApply2FAModal(false);
       setApply2FAEmail("");
     }
+  };
+
+  const handleViewLogDetails = () => {
+    setShowLogDetailsModal(true);
   };
 
   const renderDashboardContent = () => (
@@ -840,26 +845,164 @@ const AdminDashboard = () => {
       </div>
 
       <div className="content-section admin-section">
-        <h2><FaExclamationTriangle style={{ marginRight: '8px' }} />Recent Error Logs</h2>
-        <div className="log-container">
-          <div className="log-entry error">
-            <div className="log-time">2024-01-15 14:32:15</div>
-            <div className="log-level">ERROR</div>
-            <div className="log-message">Database connection timeout after 30 seconds</div>
-            <div className="log-source">database.js:45</div>
+        <div className="log-dates-header">
+          <h2><FaCalendarAlt style={{ marginRight: '8px' }} />Available Log Dates</h2>
+          <div className="log-dates-controls">
+            <div className="top-n-selector">
+              <label>Top N</label>
+              <select>
+                <option value="15">15</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+            </div>
+            <div className="search-box">
+              <FaSearch className="search-icon" />
+              <input type="text" placeholder="Search dates..." />
+            </div>
           </div>
-          <div className="log-entry warning">
-            <div className="log-time">2024-01-15 14:28:42</div>
-            <div className="log-level">WARN</div>
-            <div className="log-message">High memory usage detected: 85%</div>
-            <div className="log-source">monitor.js:123</div>
-          </div>
-          <div className="log-entry error">
-            <div className="log-time">2024-01-15 14:25:18</div>
-            <div className="log-level">ERROR</div>
-            <div className="log-message">Failed to authenticate user: Invalid token</div>
-            <div className="log-source">auth.js:78</div>
-          </div>
+        </div>
+        
+        <div className="log-dates-table-container">
+          <table className="log-dates-table">
+            <thead>
+              <tr>
+                <th>Sr</th>
+                <th>Date</th>
+                <th>Log Entries</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span className="serial-badge">1</span></td>
+                <td>
+                  <div className="date-info">
+                    <div className="date-main">October 23, 2025</div>
+                    <div className="date-day">Thursday</div>
+                  </div>
+                </td>
+                <td>
+                  <span className="log-entries-badge">
+                    <FaFileAlt className="log-icon" />
+                    65221
+                  </span>
+                </td>
+                <td>
+                  <button className="view-details-btn" onClick={handleViewLogDetails}>
+                    <FaEye className="view-icon" />
+                    View Details
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td><span className="serial-badge">2</span></td>
+                <td>
+                  <div className="date-info">
+                    <div className="date-main">October 22, 2025</div>
+                    <div className="date-day">Wednesday</div>
+                  </div>
+                </td>
+                <td>
+                  <span className="log-entries-badge">
+                    <FaFileAlt className="log-icon" />
+                    211233
+                  </span>
+                </td>
+                <td>
+                  <button className="view-details-btn" onClick={handleViewLogDetails}>
+                    <FaEye className="view-icon" />
+                    View Details
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td><span className="serial-badge">3</span></td>
+                <td>
+                  <div className="date-info">
+                    <div className="date-main">October 21, 2025</div>
+                    <div className="date-day">Tuesday</div>
+                  </div>
+                </td>
+                <td>
+                  <span className="log-entries-badge">
+                    <FaFileAlt className="log-icon" />
+                    186295
+                  </span>
+                </td>
+                <td>
+                  <button className="view-details-btn" onClick={handleViewLogDetails}>
+                    <FaEye className="view-icon" />
+                    View Details
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td><span className="serial-badge">4</span></td>
+                <td>
+                  <div className="date-info">
+                    <div className="date-main">October 20, 2025</div>
+                    <div className="date-day">Monday</div>
+                  </div>
+                </td>
+                <td>
+                  <span className="log-entries-badge">
+                    <FaFileAlt className="log-icon" />
+                    112653
+                  </span>
+                </td>
+                <td>
+                  <button className="view-details-btn" onClick={handleViewLogDetails}>
+                    <FaEye className="view-icon" />
+                    View Details
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td><span className="serial-badge">5</span></td>
+                <td>
+                  <div className="date-info">
+                    <div className="date-main">October 19, 2025</div>
+                    <div className="date-day">Sunday</div>
+                  </div>
+                </td>
+                <td>
+                  <span className="log-entries-badge">
+                    <FaFileAlt className="log-icon" />
+                    40331
+                  </span>
+                </td>
+                <td>
+                  <button className="view-details-btn" onClick={handleViewLogDetails}>
+                    <FaEye className="view-icon" />
+                    View Details
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td><span className="serial-badge">6</span></td>
+                <td>
+                  <div className="date-info">
+                    <div className="date-main">October 18, 2025</div>
+                    <div className="date-day">Saturday</div>
+                  </div>
+                </td>
+                <td>
+                  <span className="log-entries-badge">
+                    <FaFileAlt className="log-icon" />
+                    212727
+                  </span>
+                </td>
+                <td>
+                  <button className="view-details-btn" onClick={handleViewLogDetails}>
+                    <FaEye className="view-icon" />
+                    View Details
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </>
@@ -927,26 +1070,164 @@ const AdminDashboard = () => {
       </div>
 
       <div className="content-section admin-section">
-        <h2><FaFileAlt style={{ marginRight: '8px' }} />System Activity Logs</h2>
-        <div className="log-container">
-          <div className="log-entry info">
-            <div className="log-time">2024-01-15 14:35:22</div>
-            <div className="log-level">INFO</div>
-            <div className="log-message">User login successful: admin@example.com</div>
-            <div className="log-source">auth.js:45</div>
+        <div className="log-dates-header">
+          <h2><FaCalendarAlt style={{ marginRight: '8px' }} />Available Log Dates</h2>
+          <div className="log-dates-controls">
+            <div className="top-n-selector">
+              <label>Top N</label>
+              <select>
+                <option value="15">15</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+            </div>
+            <div className="search-box">
+              <FaSearch className="search-icon" />
+              <input type="text" placeholder="Search dates..." />
+            </div>
           </div>
-          <div className="log-entry info">
-            <div className="log-time">2024-01-15 14:34:18</div>
-            <div className="log-level">INFO</div>
-            <div className="log-message">Database backup completed successfully</div>
-            <div className="log-source">backup.js:89</div>
-          </div>
-          <div className="log-entry info">
-            <div className="log-time">2024-01-15 14:33:45</div>
-            <div className="log-level">INFO</div>
-            <div className="log-message">Cache cleared: 1.2MB freed</div>
-            <div className="log-source">cache.js:156</div>
-          </div>
+        </div>
+        
+        <div className="log-dates-table-container">
+          <table className="log-dates-table">
+            <thead>
+              <tr>
+                <th>Sr</th>
+                <th>Date</th>
+                <th>Log Entries</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span className="serial-badge">1</span></td>
+                <td>
+                  <div className="date-info">
+                    <div className="date-main">October 23, 2025</div>
+                    <div className="date-day">Thursday</div>
+                  </div>
+                </td>
+                <td>
+                  <span className="log-entries-badge">
+                    <FaFileAlt className="log-icon" />
+                    125432
+                  </span>
+                </td>
+                <td>
+                  <button className="view-details-btn" onClick={handleViewLogDetails}>
+                    <FaEye className="view-icon" />
+                    View Details
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td><span className="serial-badge">2</span></td>
+                <td>
+                  <div className="date-info">
+                    <div className="date-main">October 22, 2025</div>
+                    <div className="date-day">Wednesday</div>
+                  </div>
+                </td>
+                <td>
+                  <span className="log-entries-badge">
+                    <FaFileAlt className="log-icon" />
+                    98765
+                  </span>
+                </td>
+                <td>
+                  <button className="view-details-btn" onClick={handleViewLogDetails}>
+                    <FaEye className="view-icon" />
+                    View Details
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td><span className="serial-badge">3</span></td>
+                <td>
+                  <div className="date-info">
+                    <div className="date-main">October 21, 2025</div>
+                    <div className="date-day">Tuesday</div>
+                  </div>
+                </td>
+                <td>
+                  <span className="log-entries-badge">
+                    <FaFileAlt className="log-icon" />
+                    156789
+                  </span>
+                </td>
+                <td>
+                  <button className="view-details-btn" onClick={handleViewLogDetails}>
+                    <FaEye className="view-icon" />
+                    View Details
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td><span className="serial-badge">4</span></td>
+                <td>
+                  <div className="date-info">
+                    <div className="date-main">October 20, 2025</div>
+                    <div className="date-day">Monday</div>
+                  </div>
+                </td>
+                <td>
+                  <span className="log-entries-badge">
+                    <FaFileAlt className="log-icon" />
+                    203456
+                  </span>
+                </td>
+                <td>
+                  <button className="view-details-btn" onClick={handleViewLogDetails}>
+                    <FaEye className="view-icon" />
+                    View Details
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td><span className="serial-badge">5</span></td>
+                <td>
+                  <div className="date-info">
+                    <div className="date-main">October 19, 2025</div>
+                    <div className="date-day">Sunday</div>
+                  </div>
+                </td>
+                <td>
+                  <span className="log-entries-badge">
+                    <FaFileAlt className="log-icon" />
+                    87654
+                  </span>
+                </td>
+                <td>
+                  <button className="view-details-btn" onClick={handleViewLogDetails}>
+                    <FaEye className="view-icon" />
+                    View Details
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td><span className="serial-badge">6</span></td>
+                <td>
+                  <div className="date-info">
+                    <div className="date-main">October 18, 2025</div>
+                    <div className="date-day">Saturday</div>
+                  </div>
+                </td>
+                <td>
+                  <span className="log-entries-badge">
+                    <FaFileAlt className="log-icon" />
+                    234567
+                  </span>
+                </td>
+                <td>
+                  <button className="view-details-btn" onClick={handleViewLogDetails}>
+                    <FaEye className="view-icon" />
+                    View Details
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </>
@@ -1014,26 +1295,164 @@ const AdminDashboard = () => {
       </div>
 
       <div className="content-section admin-section">
-        <h2><FaMousePointer style={{ marginRight: '8px' }} />User Click Analytics</h2>
-        <div className="log-container">
-          <div className="log-entry click">
-            <div className="log-time">2024-01-15 14:35:22</div>
-            <div className="log-level">CLICK</div>
-            <div className="log-message">Button clicked: "Add User" by admin@example.com</div>
-            <div className="log-source">dashboard.js:123</div>
+        <div className="log-dates-header">
+          <h2><FaCalendarAlt style={{ marginRight: '8px' }} />Available Log Dates</h2>
+          <div className="log-dates-controls">
+            <div className="top-n-selector">
+              <label>Top N</label>
+              <select>
+                <option value="15">15</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+            </div>
+            <div className="search-box">
+              <FaSearch className="search-icon" />
+              <input type="text" placeholder="Search dates..." />
+            </div>
           </div>
-          <div className="log-entry click">
-            <div className="log-time">2024-01-15 14:34:18</div>
-            <div className="log-level">CLICK</div>
-            <div className="log-message">Navigation: Users tab selected</div>
-            <div className="log-source">sidebar.js:45</div>
-          </div>
-          <div className="log-entry click">
-            <div className="log-time">2024-01-15 14:33:45</div>
-            <div className="log-level">CLICK</div>
-            <div className="log-message">Modal opened: View User Details</div>
-            <div className="log-source">modal.js:78</div>
-          </div>
+        </div>
+        
+        <div className="log-dates-table-container">
+          <table className="log-dates-table">
+            <thead>
+              <tr>
+                <th>Sr</th>
+                <th>Date</th>
+                <th>Log Entries</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span className="serial-badge">1</span></td>
+                <td>
+                  <div className="date-info">
+                    <div className="date-main">October 23, 2025</div>
+                    <div className="date-day">Thursday</div>
+                  </div>
+                </td>
+                <td>
+                  <span className="log-entries-badge">
+                    <FaMousePointer className="log-icon" />
+                    45678
+                  </span>
+                </td>
+                <td>
+                  <button className="view-details-btn" onClick={handleViewLogDetails}>
+                    <FaEye className="view-icon" />
+                    View Details
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td><span className="serial-badge">2</span></td>
+                <td>
+                  <div className="date-info">
+                    <div className="date-main">October 22, 2025</div>
+                    <div className="date-day">Wednesday</div>
+                  </div>
+                </td>
+                <td>
+                  <span className="log-entries-badge">
+                    <FaMousePointer className="log-icon" />
+                    67890
+                  </span>
+                </td>
+                <td>
+                  <button className="view-details-btn" onClick={handleViewLogDetails}>
+                    <FaEye className="view-icon" />
+                    View Details
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td><span className="serial-badge">3</span></td>
+                <td>
+                  <div className="date-info">
+                    <div className="date-main">October 21, 2025</div>
+                    <div className="date-day">Tuesday</div>
+                  </div>
+                </td>
+                <td>
+                  <span className="log-entries-badge">
+                    <FaMousePointer className="log-icon" />
+                    34567
+                  </span>
+                </td>
+                <td>
+                  <button className="view-details-btn" onClick={handleViewLogDetails}>
+                    <FaEye className="view-icon" />
+                    View Details
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td><span className="serial-badge">4</span></td>
+                <td>
+                  <div className="date-info">
+                    <div className="date-main">October 20, 2025</div>
+                    <div className="date-day">Monday</div>
+                  </div>
+                </td>
+                <td>
+                  <span className="log-entries-badge">
+                    <FaMousePointer className="log-icon" />
+                    78901
+                  </span>
+                </td>
+                <td>
+                  <button className="view-details-btn" onClick={handleViewLogDetails}>
+                    <FaEye className="view-icon" />
+                    View Details
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td><span className="serial-badge">5</span></td>
+                <td>
+                  <div className="date-info">
+                    <div className="date-main">October 19, 2025</div>
+                    <div className="date-day">Sunday</div>
+                  </div>
+                </td>
+                <td>
+                  <span className="log-entries-badge">
+                    <FaMousePointer className="log-icon" />
+                    23456
+                  </span>
+                </td>
+                <td>
+                  <button className="view-details-btn" onClick={handleViewLogDetails}>
+                    <FaEye className="view-icon" />
+                    View Details
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td><span className="serial-badge">6</span></td>
+                <td>
+                  <div className="date-info">
+                    <div className="date-main">October 18, 2025</div>
+                    <div className="date-day">Saturday</div>
+                  </div>
+                </td>
+                <td>
+                  <span className="log-entries-badge">
+                    <FaMousePointer className="log-icon" />
+                    56789
+                  </span>
+                </td>
+                <td>
+                  <button className="view-details-btn" onClick={handleViewLogDetails}>
+                    <FaEye className="view-icon" />
+                    View Details
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </>
@@ -1958,6 +2377,109 @@ const AdminDashboard = () => {
               <button className="btn-cancel" onClick={() => setShowApply2FAModal(false)}>
                 <FaTrash style={{ marginRight: '8px' }} />
                 Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Log Details Modal */}
+      {showLogDetailsModal && (
+        <div className="modal-overlay" onClick={() => setShowLogDetailsModal(false)}>
+          <div className="modal-content log-details-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h3><FaFileAlt style={{ marginRight: '8px' }} />Log Details</h3>
+              <button className="modal-close" onClick={() => setShowLogDetailsModal(false)}>
+                ×
+              </button>
+            </div>
+            
+            <div className="modal-body">
+              <div className="log-details-table-container">
+                <table className="log-details-table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Log Level</th>
+                      <th>Message</th>
+                      <th>Product Click</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><span className="log-id-badge">8435150</span></td>
+                      <td><span className="log-level-badge success">SUCCESS</span></td>
+                      <td>Product found with keyword: '3d Blade sign'</td>
+                      <td>No</td>
+                    </tr>
+                    <tr>
+                      <td><span className="log-id-badge">8435149</span></td>
+                      <td><span className="log-level-badge debug">DEBUG</span></td>
+                      <td>Final status - Favorites: yes, Cart: yes</td>
+                      <td>No</td>
+                    </tr>
+                    <tr>
+                      <td><span className="log-id-badge">8435148</span></td>
+                      <td><span className="log-level-badge success">SUCCESS</span></td>
+                      <td>Product successfully added to cart</td>
+                      <td>No</td>
+                    </tr>
+                    <tr>
+                      <td><span className="log-id-badge">8435147</span></td>
+                      <td><span className="log-level-badge info">INFO</span></td>
+                      <td>No error messages detected after cart addition</td>
+                      <td>No</td>
+                    </tr>
+                    <tr className="selected-row">
+                      <td><span className="log-id-badge">8435146</span></td>
+                      <td><span className="log-level-badge success">SUCCESS</span></td>
+                      <td>Product Added To Cart Successfully</td>
+                      <td>No</td>
+                    </tr>
+                    <tr>
+                      <td><span className="log-id-badge">8435145</span></td>
+                      <td><span className="log-level-badge debug">DEBUG</span></td>
+                      <td>Clicked add to cart button using direct click</td>
+                      <td>No</td>
+                    </tr>
+                    <tr>
+                      <td><span className="log-id-badge">8435144</span></td>
+                      <td><span className="log-level-badge info">INFO</span></td>
+                      <td>Attempting to find and click the favorite button...</td>
+                      <td>No</td>
+                    </tr>
+                    <tr>
+                      <td><span className="log-id-badge">8435143</span></td>
+                      <td><span className="log-level-badge info">INFO</span></td>
+                      <td>Starting favorites and cart handling for keyword 'Reception LED Neon Decor', page 1</td>
+                      <td>No</td>
+                    </tr>
+                    <tr>
+                      <td><span className="log-id-badge">8435142</span></td>
+                      <td><span className="log-level-badge debug">DEBUG</span></td>
+                      <td>Scrolled to add to cart button</td>
+                      <td>No</td>
+                    </tr>
+                    <tr>
+                      <td><span className="log-id-badge">8435141</span></td>
+                      <td><span className="log-level-badge info">INFO</span></td>
+                      <td>Attempting to find add to cart button...</td>
+                      <td>No</td>
+                    </tr>
+                    <tr>
+                      <td><span className="log-id-badge">8435140</span></td>
+                      <td><span className="log-level-badge success">SUCCESS</span></td>
+                      <td>Added personalization text: Asher Simmons</td>
+                      <td>No</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            
+            <div className="modal-footer">
+              <button className="btn-cancel" onClick={() => setShowLogDetailsModal(false)}>
+                Close
               </button>
             </div>
           </div>
